@@ -1,0 +1,74 @@
+﻿@{
+  //var data = ViewData.Model as Business.ViewModels.ViewModelBase;
+  //Business.Models.SimpleUser user = data == null ? null : data.User;
+  object user = null;
+
+  string q = null;
+  if (ViewBag.Query != null) {
+      q = ViewBag.Query as string;
+  }
+  else {
+      q = "";
+  }
+  //string controller = ViewBag.SearchController ?? "Unknown";
+  //string searchUrl = Url.Action( "Index", controller );
+}
+
+<header data-role="appbar" data-expand-point="md" style="position: static;">
+    <a href="~/" class="brand no-hover order-1" title="Electron!">
+        Electron Demo
+    </a>
+    @if (!string.IsNullOrWhiteSpace( ViewBag.SearchController )) {
+        <div class="app-bar-item d-none d-flex-md order-2">
+            <input class="app-bar-search" id="q" name="q" type="text" placeholder="搜索……" value="@q" onkeyup="onkeyup_query(event)">
+        </div>
+    }
+    <ul class="app-bar-menu order-4 order-md-3">
+        <li><a href="#">Knowledge</a></li>
+        <li><a href="#">Data</a></li>
+        <li><a href="#">Compute</a></li>
+    </ul>
+    <div class="app-bar-container ml-auto order-3 order-md-4">
+        @if (user != null) {
+            @*<a href="#" class="app-bar-item"><span class="mif-bell"></span></a>*@
+            // create marker-light
+            <div class="app-bar-contaniner">
+                <a class="app-bar-item dropdown-toggle"><span class="mif-plus"></span></a>
+                <ul class="d-menu place-right" data-role="dropdown">
+                    <li><a href="~/"><span class="mif-camera"></span> 供货商/Supplier</a></li>
+                    <li><a href="~/"><span class="mif-camera"></span> 工厂/Manufactory</a></li>
+                    <li><a href="~/"><span class="mif-camera"></span> 平台/Platform</a></li>
+                    <li class="divider"></li>
+                    <li><a href="~/"><span class="mif-camera"></span> 产品/Product</a></li>
+                    <li><a href="~/"><span class="mif-star-empty"></span> 品牌/Brand</a></li>
+                    <li class="divider"></li>
+                    <li><a href="~/"><span class="mif-camera"></span> 门店/Store</a></li>
+                </ul>
+            </div>
+            // account marker-light
+            <div class="app-bar-contaniner">
+                <a class="app-bar-item dropdown-toggle"><span class="mif-user"></span></a>
+                <ul class="d-menu place-right" data-role="dropdown">
+                    @*<li><a href="~/invitation-code"><span class="mif-shareable"></span> 我的邀请码</a></li>
+                    <li class="divider"></li>*@
+                    <li><a href="~/logout"><span class="mif-exit"></span> 注销</a></li>
+                </ul>
+            </div>
+        }
+        else {
+            <a class="app-bar-item text-center bg-cyan fg-white" href="~/">登录</a>
+            <a class="app-bar-item text-center bg-green fg-white" href="~/">注册</a>
+        }
+    </div>
+</header>
+
+<script>
+    function onkeyup_query(e) {
+        var enterKey = 13;
+        var charCode = (typeof e.which === "number") ? e.which : e.keyCode;
+        if (charCode === enterKey) {
+            var q = document.getElementById("q").value;
+            //window.location.href = "@@@@searchUrl" + "?q=" + encodeURI(q);
+        }
+    }
+</script>
